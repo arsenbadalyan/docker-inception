@@ -1,11 +1,11 @@
-FROM debian:buster
+FROM debian:bookworm-slim
 
-ENV PHP_VERSION 7.3
+ENV PHP_VERSION 8.2
 
 RUN mkdir -p /run/php
 
 RUN	apt-get update -y && apt-get upgrade -y
-RUN apt install -y \
+RUN apt-get install -y \
 	curl \
 	wget \
 	php${PHP_VERSION} \
@@ -29,4 +29,6 @@ COPY ./tools/setup_wordpress.sh /usr/bin/
 RUN chmod +x /usr/bin/setup_wordpress.sh
 ENTRYPOINT [ "/usr/bin/setup_wordpress.sh" ]
 
-CMD [ "/usr/sbin/php-fpm7.3", "-F" ]
+EXPOSE 9000
+
+CMD [ "/usr/sbin/php-fpm8.2", "-F" ]

@@ -1,7 +1,7 @@
-FROM debian:buster
+FROM debian:bookworm-slim
 
-RUN apt update -y && apt upgrade -y
-RUN apt install -y nginx openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y nginx openssl && rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/default.conf /etc/nginx/sites-available/
 

@@ -19,17 +19,12 @@ else
 	sed -i "s/database_name_here/$MYSQL_DB/g" wp-config-sample.php
 	cp wp-config-sample.php wp-config.php
 
-
-## redis ##
-
-	# wp config set WP_REDIS_HOST redis --allow-root
-    # wp config set WP_REDIS_PORT 6379 --raw --allow-root
-    # wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
-    # #wp config set WP_REDIS_PASSWORD $REDIS_PASSWORD --allow-root
-    # wp config set WP_REDIS_CLIENT phpredis --allow-root
-	# wp plugin install redis-cache --activate --allow-root
-    # wp plugin update --all --allow-root
-	# wp redis enable --allow-root
+	# redis configs/plugin setup
+	wp config set WP_REDIS_HOST $REDIS_HOSTNAME --allow-root
+    wp config set WP_REDIS_PORT $REDIS_PORT --raw --allow-root
+    wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
+    wp config set WP_REDIS_PASSWORD $REDIS_PASSWORD --allow-root
+    wp config set WP_REDIS_CLIENT phpredis --allow-root
 
 fi
 

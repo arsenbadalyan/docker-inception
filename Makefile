@@ -41,11 +41,15 @@ fclean: clean
 	@docker system prune -a
 	@echo "!DONE!"
 
-hard_reset: fclean
-	@echo "Cleaning all docker volumes..."
+hard_reset: hard_down fclean
+	@echo "Cleaning all docker volumes...";
 	@docker volume rm $(docker volume ls -q) 2> /dev/null || true
 	@echo "!DONE!"
 
 configure_volumes:
 	@mkdir -p ./srcs/wp_volume
 	@mkdir -p ./srcs/sql_volume
+
+remove_volumes:
+	@rm -rf ./srcs/wp_volume
+	@rm -rf ./srcs/sql_volume

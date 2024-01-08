@@ -6,6 +6,7 @@ services:
         build: "./requirements/nginx/"
         depends_on:
             - wordpress
+            - game
         ports:
             - "443:443"
         volumes:
@@ -20,6 +21,7 @@ services:
         build: "./requirements/wordpress/"
         depends_on:
             - mariadb
+            - redis
         volumes:
             - wordpress:/var/www/html/
         networks:
@@ -30,8 +32,54 @@ services:
     mariadb:
         container_name: mariadb
         build: "./requirements/mariadb/"
+        depends_on:
+            - redis
         volumes:
             - sql:/var/lib/mysql/
+        networks:
+            - bridgeNetwork
+        env_file:
+            - .env
+        restart: always
+    redis:
+        container_name: redis
+        build: "./requirements/bonus/redis/"
+        networks:
+            - bridgeNetwork
+        env_file:
+            - .env
+        restart: always
+    ftp:
+        container_name: ftp
+        build: "./requirements/bonus/ftp/"
+        ports:
+            - "21:21"
+            - "21100-21110:21100-21110"
+        volumes:
+            - wordpress:/var/www/html
+        networks:
+            - bridgeNetwork
+        env_file:
+            - .env
+        restart: always
+    game:
+        container_name: game
+        build: "./requirements/bonus/game/"
+        ports:
+            - "3000:3000"
+        networks:
+            - bridgeNetwork
+        env_file:
+            - .env
+        restart: always
+    adminer:
+        container_name: adminer
+        build: "./requirements/bonus/adminer"
+        depends_on:
+            - mariadb
+            - wordpress
+        ports:
+            - "8080:8080"
         networks:
             - bridgeNetwork
         env_file:
