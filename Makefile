@@ -49,7 +49,9 @@ hard_reset: hard_down fclean
 configure_volumes:
 	@mkdir -p ./srcs/wp_volume
 	@mkdir -p ./srcs/sql_volume
+	@mkdir -p ./srcs/portainer_data
 
 remove_volumes:
 	@rm -rf ./srcs/wp_volume
 	@rm -rf ./srcs/sql_volume
+	@rm -rf ./srcs/portainer_data

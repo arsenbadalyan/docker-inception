@@ -19,6 +19,13 @@ else
 	sed -i "s/database_name_here/$MYSQL_DB/g" wp-config-sample.php
 	cp wp-config-sample.php wp-config.php
 
+	# setting users
+	wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ROOT_USER_USERNAME --admin_password=$WP_ROOT_USER_PASSWORD --admin_email=$WP_ROOT_USER_EMAIL --skip-email --allow-root
+    wp user create $WP_USER_USERNAME $WP_USER_EMAIL --role=$WP_USER_ROLE --user_pass=$WP_USER_PASSWORD --allow-root
+
+	wp plugin update --all --allow-root
+	wp plugin install redis-cache --activate --allow-root
+
 	# redis configs/plugin setup
 	wp config set WP_REDIS_HOST $REDIS_HOSTNAME --allow-root
     wp config set WP_REDIS_PORT $REDIS_PORT --raw --allow-root
@@ -27,5 +34,7 @@ else
     wp config set WP_REDIS_CLIENT phpredis --allow-root
 
 fi
+
+wp plugin activate redis-cache --allow-root
 
 exec $@

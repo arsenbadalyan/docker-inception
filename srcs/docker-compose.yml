@@ -85,6 +85,19 @@ services:
         env_file:
             - .env
         restart: always
+    portainer:
+        container_name: portainer
+        build: "./requirements/bonus/portainer"
+        ports:
+            - "9443:9443"
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "portainer_data:/data"
+        networks:
+            - bridgeNetwork
+        env_file:
+            - .env
+        restart: always
 
 volumes:
     wordpress:
@@ -99,6 +112,13 @@ volumes:
         driver: local
         driver_opts:
             device: ./sql_volume/
+            o: bind
+            type: none
+    portainer_data:
+        name: portainer
+        driver: local
+        driver_opts:
+            device: ./portainer_data/
             o: bind
             type: none
 
