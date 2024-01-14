@@ -5,7 +5,6 @@ mkdir -p /var/run/vsftpd/empty
 
 adduser $FTP_USER --disabled-password
 echo "$FTP_USER:$FTP_PASSWORD" | /usr/sbin/chpasswd &> /dev/null
-chown -R $FTP_USER:$FTP_USER /var/www/html
 adduser $FTP_USER root
 
 /usr/sbin/vsftpd /etc/vsftpd.conf

@@ -55,3 +55,5 @@ remove_volumes:
 	@rm -rf ./srcs/wp_volume
 	@rm -rf ./srcs/sql_volume
 	@rm -rf ./srcs/portainer_data
+
+reconfig_volumes: remove_volumes configure_volumes

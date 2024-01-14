@@ -10,4 +10,6 @@ RUN chmod +x /usr/bin/db_start.sh
 
 EXPOSE 3306
 
-CMD ["/usr/bin/db_start.sh"]
+ENTRYPOINT ["/usr/bin/db_start.sh"]
+
+CMD ["mysqld", "--bind-address=0.0.0.0"]

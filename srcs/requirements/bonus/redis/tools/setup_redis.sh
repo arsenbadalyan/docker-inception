@@ -1,6 +1,8 @@
 #!/bin/bash
 
-cd /etc/redis/;
+cd /etc/redis/
+
+sleep 30
 
 if [ ! -f "/etc/redis/redis.conf.bak" ]; then
 
